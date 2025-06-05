@@ -4,6 +4,8 @@ import { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Menu, X, ChevronDown } from "lucide-react"
+import EATeK from "@/public/EA.png"
+import Image from "next/image"
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -21,12 +23,13 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/90 backdrop-blur-sm shadow-sm">
       <div className="container flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-          <div className="h-8 w-8 flex items-center justify-center rounded-md bg-gradient-to-r from-teal-500 to-blue-500 text-white font-bold text-sm">
+          {/* <div className="h-8 w-8 flex items-center justify-center rounded-md bg-gradient-to-r from-teal-500 to-blue-500 text-white font-bold text-sm">
             E
           </div>
           <span className="text-xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-teal-600 to-blue-600">
             EATEK
-          </span>
+          </span> */}
+        <Image src={EATeK} alt="EATEK Logo" width={200} height={200}/>
         </Link>
 
         {/* Desktop Navigation */}
@@ -232,7 +235,8 @@ export default function Header() {
               About Us
             </Link>
 
-            <Button asChild size="sm" className="w-full bg-teal-600 hover:bg-teal-700 mt-4">
+            {/* <Button asChild size="sm" className="w-full bg-teal-600 hover:bg-teal-700 mt-4"> */}
+            <Button  size="sm" className="w-full bg-black mt-4">
               <Link href="/contact" onClick={() => setIsMenuOpen(false)}>
                 Contact Us
               </Link>
