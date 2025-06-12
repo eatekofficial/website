@@ -256,7 +256,7 @@ export default function TechnologyStack() {
 
       <div className="container px-4 md:px-6 relative">
         <div className="text-center mb-16 max-w-3xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-teal-600 via-blue-600 to-indigo-600">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-clip-text text-transparent  bg-gradient-to-r from-cyan-600 via-purple-400 to-red-500">
             Our Technology Expertise
           </h2>
           <p className="text-lg text-gray-600">
@@ -274,7 +274,7 @@ export default function TechnologyStack() {
               className={cn(
                 "flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300",
                 activeCategory === index
-                  ? "bg-gradient-to-r from-teal-500 to-blue-600 text-white shadow-lg shadow-teal-500/20"
+                  ? " bg-gradient-to-r from-cyan-600 via-purple-400 to-red-500 text-white shadow-lg shadow-teal-500/20"
                   : "bg-white text-gray-700 border border-gray-200 hover:border-teal-300 hover:bg-gray-50",
               )}
             >
@@ -296,7 +296,7 @@ export default function TechnologyStack() {
           <div className="flex flex-col md:flex-row gap-8">
             <div className="md:w-1/3">
               <div className="flex items-center gap-3 mb-4">
-                <div className="p-3 rounded-lg bg-gradient-to-br from-teal-500 to-blue-600 text-white">
+                <div className="p-3 rounded-lg  bg-gradient-to-r from-cyan-600 via-purple-400 to-red-500 text-white">
                   {techCategories[activeCategory].icon}
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900">{techCategories[activeCategory].name}</h3>
@@ -305,7 +305,7 @@ export default function TechnologyStack() {
 
               {/* Decorative elements */}
               <div className="hidden md:block relative h-40 mt-8">
-                <div className="absolute top-0 left-0 w-20 h-20 bg-teal-100/50 rounded-full blur-xl"></div>
+                <div className="absolute top-0 left-0 w-20 h-20 bg-cyan-100/50 rounded-full blur-xl"></div>
                 <div className="absolute bottom-0 right-0 w-32 h-32 bg-blue-100/50 rounded-full blur-xl"></div>
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
               </div>
@@ -334,14 +334,14 @@ export default function TechnologyStack() {
                   <div className="mt-3">
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-xs text-gray-500">Expertise Level</span>
-                      <span className="text-xs text-teal-600">{tech.level}/5</span>
+                      <span className="text-xs text-purple-600">{tech.level}/5</span>
                     </div>
                     <div className="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
                       <motion.div
                         initial={{ width: 0 }}
                         animate={{ width: `${(tech.level / 5) * 100}%` }}
                         transition={{ duration: 1, delay: index * 0.1 }}
-                        className="h-full bg-gradient-to-r from-teal-500 to-blue-500 rounded-full"
+                        className="h-full  bg-gradient-to-r from-cyan-600 via-purple-400 to-red-500 rounded-full"
                       ></motion.div>
                     </div>
                   </div>

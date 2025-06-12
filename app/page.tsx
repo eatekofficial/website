@@ -57,7 +57,7 @@ export default function Page() {
       <Testimonials />
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-teal-500 to-blue-600 text-white">
+      <section className="py-20 bg-gradient-to-r from-cyan-400 to-blue-600 text-white">
         <div className="container px-4 md:px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Transform Your Ideas into Reality?</h2>
           <p className="text-lg text-white/80 mb-8 max-w-2xl mx-auto">

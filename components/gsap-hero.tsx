@@ -68,7 +68,7 @@ export default function Hero() {
         <div className="flex flex-col lg:flex-row items-center gap-12">
           <div className="lg:w-1/2 text-center lg:text-left">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-teal-600 via-blue-600 to-indigo-600">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-cyan-600 via-purple-400 to-red-500">
                 Innovative Solutions at the Intersection of Education, Art & Technology
               </h1>
             </motion.div>
@@ -92,7 +92,7 @@ export default function Hero() {
               <Button
                 asChild
                 size="lg"
-                className="bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700"
+                className=" bg-gradient-to-r from-cyan-600 via-purple-400 to-red-500 hover:from-teal-600 hover:to-blue-700"
               >
                 <Link href="/solutions">
                   Explore Our Solutions <ArrowRight className="ml-2 h-4 w-4" />

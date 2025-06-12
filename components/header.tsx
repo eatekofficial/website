@@ -35,12 +35,12 @@ export default function Header() {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
           <div className="relative group">
-            <button
+            {/* <button
               className="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-teal-600 transition-colors"
               onClick={() => toggleDropdown("solutions")}
             >
               Solutions <ChevronDown className="h-4 w-4" />
-            </button>
+            </button> */}
             <div className="absolute left-0 top-full mt-2 w-56 rounded-md bg-white shadow-lg ring-1 ring-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
               <div className="py-2 px-3">
                 <Link href="/education" className="block py-2 px-3 text-sm text-gray-700 hover:bg-gray-100 rounded-md">
@@ -110,7 +110,7 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-4">
-          <Button asChild size="sm" className="hidden md:flex bg-teal-600 hover:bg-teal-700">
+          <Button asChild size="sm" className="hidden md:flex  bg-gradient-to-r from-cyan-500 via-purple-500 to-red-500 hover:bg-teal-700">
             <Link href="/contact">Contact Us</Link>
           </Button>
 
@@ -235,8 +235,7 @@ export default function Header() {
               About Us
             </Link>
 
-            {/* <Button asChild size="sm" className="w-full bg-teal-600 hover:bg-teal-700 mt-4"> */}
-            <Button  size="sm" className="w-full bg-black mt-4">
+            <Button asChild size="sm" className="w-full bg-teal-600 hover:bg-teal-700 mt-4">
               <Link href="/contact" onClick={() => setIsMenuOpen(false)}>
                 Contact Us
               </Link>
