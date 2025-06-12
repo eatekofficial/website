@@ -1,4 +1,5 @@
 import type React from "react"
+import type { JSX } from "react"
 import {
   GraduationCap,
   BarChart3,
@@ -17,7 +18,7 @@ import {
 export interface SolutionNode {
   id: string
   slug: string
-  name: string
+  icon: JSX.Element
   icon: React.ReactNode
   description: string
   fullDescription?: string
