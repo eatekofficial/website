@@ -186,7 +186,7 @@ export const solutionNodes: SolutionNode[] = [
     id: "eatek",
     slug: "eatek-ecosystem",
     name: "EATEK Ecosystem",
-    icon: <Atom className="h-6 w-6" />,
+    // icon: <Atom className="h-6 w-6" />,
     description: "Education, Art & Technology Ecosystem",
     fullDescription:
       "The EATEK Ecosystem is a comprehensive framework that integrates education, art, and technology to create innovative solutions for the modern world. Our ecosystem approach ensures that all solutions work together seamlessly, providing a holistic experience for users across domains.",
