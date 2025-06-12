@@ -1,4 +1,4 @@
-import { Calendar } from "@/components/ui/calendar"
+import { Calendar } from "lucide-react"
 import type React from "react"
 import {
   GraduationCap,

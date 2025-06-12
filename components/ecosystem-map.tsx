@@ -181,6 +181,15 @@ export default function EcosystemMap() {
     }
   }, [positions])
 
+  interface Star {
+    x: number
+    y: number
+    size: number
+    speed: number
+    brightness: number
+    blinkSpeed: number
+  }
+
   // Star field animation
   useEffect(() => {
     const canvas = canvasRef.current
@@ -194,7 +203,7 @@ export default function EcosystemMap() {
     canvas.height = dimensions.height
 
     // Create stars
-    const stars = []
+    const stars: Star[] = []
     for (let i = 0; i < 200; i++) {
       stars.push({
         x: Math.random() * dimensions.width,
