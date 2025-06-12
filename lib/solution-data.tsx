@@ -1,5 +1,4 @@
-import type React from "react"
-import type { JSX } from "react"
+import { type ReactElement } from "react"
 import {
   GraduationCap,
   BarChart3,
@@ -18,7 +17,8 @@ import {
 export interface SolutionNode {
   id: string
   slug: string
-  icon?: () => JSX.Element // Change the icon type to be a function returning JSX
+  name: string
+  icon: () => ReactElement // Fix: Wrap in a function
   description: string
   fullDescription?: string
   overview?: string[]
@@ -415,7 +415,7 @@ export const solutionNodes: SolutionNode[] = [
     id: "e-learning",
     slug: "e-learning-platform",
     name: "E-Learning Platform",
-    icon: <Laptop className="h-5 w-5" />,
+    icon: () => <Laptop className="h-6 w-6" />,
     description: "Interactive online learning environments",
     fullDescription:
       "EATEK's E-Learning Platform provides a comprehensive solution for creating, delivering, and managing online courses and educational content. The platform is designed to be intuitive, engaging, and effective for both educators and learners.",
@@ -524,38 +524,39 @@ export const solutionNodes: SolutionNode[] = [
 ]
 
 // Helper function to get a solution by ID
+// Helper function to get a solution by ID): SolutionNode | undefined {
 export function getSolutionById(id: string): SolutionNode | undefined {
   return solutionNodes.find((node) => node.id === id)
 }
-
 // Helper function to get a solution by slug
+// Helper function to get a solution by slugng): SolutionNode | undefined {
 export function getSolutionBySlug(slug: string): SolutionNode | undefined {
   return solutionNodes.find((node) => node.slug === slug)
 }
-
 // Helper function to get related solutions
+// Helper function to get related solutionsing, limit = 3): SolutionNode[] {
 export function getRelatedSolutions(id: string, limit = 3): SolutionNode[] {
   const solution = getSolutionById(id)
   if (!solution) return []
-
   return solutionNodes
-    .filter(
-      (node) =>
+  return solutionNodes
+    .filter( =>
+      (node) =>on.connections.includes(node.id) || node.connections.includes(solution.id)) && node.id !== solution.id,
         (solution.connections.includes(node.id) || node.connections.includes(solution.id)) && node.id !== solution.id,
-    )
+    )slice(0, limit)
     .slice(0, limit)
 }
-
 // Helper function to get solutions by category
+// Helper function to get solutions by category: string): SolutionNode[] {
 export function getSolutionsByCategory(category: string): SolutionNode[] {
   return solutionNodes.filter((node) => node.category === category)
 }
-
 // Helper function to get solutions by workflow
-export function getSolutionsByWorkflow(workflowId: string): SolutionNode[] {
+// Helper function to get solutions by workflowId: string): SolutionNode[] {
+export function getSolutionsByWorkflow(workflowId: string): SolutionNode[] {).replace(/\s+/g, "-") === workflowId)
   const workflow = Object.values(workflows).find((w) => w.title.toLowerCase().replace(/\s+/g, "-") === workflowId)
   if (!workflow) return []
-
   const nodeIds = workflow.steps.flatMap((step) => step.includes)
+  const nodeIds = workflow.steps.flatMap((step) => step.includes))
   return solutionNodes.filter((node) => nodeIds.includes(node.id))
 }
