@@ -539,11 +539,11 @@ export function getRelatedSolutions(id: string, limit = 3): SolutionNode[] {
   const solution = getSolutionById(id)
   if (!solution) return []
   return solutionNodes
-  return solutionNodes
-    .filter( =>
-      (node) =>on.connections.includes(node.id) || node.connections.includes(solution.id)) && node.id !== solution.id,
-        (solution.connections.includes(node.id) || node.connections.includes(solution.id)) && node.id !== solution.id,
-    )slice(0, limit)
+    .filter((node) => 
+      solution.connections.includes(node.id) || 
+      node.connections.includes(solution.id)
+    )
+    .filter((node) => node.id !== solution.id)
     .slice(0, limit)
 }
 // Helper function to get solutions by category
@@ -553,10 +553,9 @@ export function getSolutionsByCategory(category: string): SolutionNode[] {
 }
 // Helper function to get solutions by workflow
 // Helper function to get solutions by workflowId: string): SolutionNode[] {
-export function getSolutionsByWorkflow(workflowId: string): SolutionNode[] {).replace(/\s+/g, "-") === workflowId)
+export function getSolutionsByWorkflow(workflowId: string): SolutionNode[] {
   const workflow = Object.values(workflows).find((w) => w.title.toLowerCase().replace(/\s+/g, "-") === workflowId)
   if (!workflow) return []
   const nodeIds = workflow.steps.flatMap((step) => step.includes)
-  const nodeIds = workflow.steps.flatMap((step) => step.includes))
   return solutionNodes.filter((node) => nodeIds.includes(node.id))
 }
