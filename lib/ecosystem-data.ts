@@ -19,13 +19,15 @@ import {
   BarChart3,
 } from "lucide-react"
 
+export type EcosystemCategory = "core" | "education" | "art" | "technology" | "service"
+
 export type EcosystemNode = {
   id: string
   name: string
   slug: string
   description: string
   icon: LucideIcon
-  category: "core" | "education" | "art" | "technology" | "service"
+  category: EcosystemCategory // More type-safe than string literal union
   parent?: string
   color: string
   features: string[]
@@ -909,16 +911,29 @@ export const ecosystemNodes: EcosystemNode[] = [
 ]
 
 export function getNodeById(id: string): EcosystemNode | undefined {
+  if (!id) {
+    console.warn('getNodeById was called with an empty id')
+    return undefined
+  }
   return ecosystemNodes.find((node) => node.id === id)
 }
 
 export function getRelatedNodes(nodeId: string): EcosystemNode[] {
-  const node = getNodeById(nodeId)
-  if (!node) return []
-
-  return node.relatedNodes.map((id) => getNodeById(id)).filter((node): node is EcosystemNode => node !== undefined)
+  const node = ecosystemNodes.find(n => n.id === nodeId)
+  if (!node || !node.relatedNodes) {
+    return []
+  }
+  
+  return node.relatedNodes
+    .map(id => ecosystemNodes.find(n => n.id === id))
+    .filter((node): node is EcosystemNode => node !== undefined)
 }
 
-export function getAllNodesByCategory(category: EcosystemNode["category"]): EcosystemNode[] {
+export function getAllNodesByCategory(category: EcosystemCategory): EcosystemNode[] {
+  if (!category) {
+    console.warn('getAllNodesByCategory was called with an empty category')
+    return []
+  }
+  
   return ecosystemNodes.filter((node) => node.category === category)
 }

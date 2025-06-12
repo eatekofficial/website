@@ -1,4 +1,4 @@
-import { getNodeById, getRelatedNodes } from "@/lib/ecosystem-data"
+import { ecosystemNodes, getRelatedNodes } from "@/lib/ecosystem-data"
 import EcosystemNodeHeader from "@/components/ecosystem-node-header"
 import EcosystemFeatureList from "@/components/ecosystem-feature-list"
 import EcosystemUseCases from "@/components/ecosystem-use-cases"
@@ -13,7 +13,8 @@ interface EcosystemNodePageProps {
 }
 
 export default function EcosystemNodePage({ params }: EcosystemNodePageProps) {
-  const node = getNodeById(params.slug)
+  // Find node by matching the slug instead of assuming slug is the id
+  const node = ecosystemNodes.find((n) => n.slug === params.slug)
 
   if (!node) {
     notFound()
