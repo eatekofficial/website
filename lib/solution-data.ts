@@ -18,8 +18,7 @@ import {
 export interface SolutionNode {
   id: string
   slug: string
-  icon: JSX.Element
-  icon: React.ReactNode
+  icon?: () => JSX.Element // Change the icon type to be a function returning JSX
   description: string
   fullDescription?: string
   overview?: string[]
@@ -186,7 +185,7 @@ export const solutionNodes: SolutionNode[] = [
     id: "eatek",
     slug: "eatek-ecosystem",
     name: "EATEK Ecosystem",
-    // icon: <Atom className="h-6 w-6" />,
+    icon: () => <Atom className="h-6 w-6" />, // Fix: Wrap in a function
     description: "Education, Art & Technology Ecosystem",
     fullDescription:
       "The EATEK Ecosystem is a comprehensive framework that integrates education, art, and technology to create innovative solutions for the modern world. Our ecosystem approach ensures that all solutions work together seamlessly, providing a holistic experience for users across domains.",
@@ -300,7 +299,7 @@ export const solutionNodes: SolutionNode[] = [
     id: "education",
     slug: "education-solutions",
     name: "Education Solutions",
-    icon: <GraduationCap className="h-6 w-6" />,
+    icon: () => <GraduationCap className="h-6 w-6" />,
     description: "Learning platforms and educational technology",
     fullDescription:
       "EATEK's Education Solutions provide comprehensive tools and platforms for modern learning environments. From e-learning platforms to assessment tools, our solutions are designed to enhance the educational experience for students and educators alike.",
