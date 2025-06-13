@@ -21,20 +21,19 @@ import {
 
 export type EcosystemCategory = "core" | "education" | "art" | "technology" | "service"
 
-export type EcosystemNode = {
+export interface EcosystemNode {
   id: string
-  name: string
   slug: string
+  name: string
   description: string
-  icon: LucideIcon
-  category: EcosystemCategory // More type-safe than string literal union
-  parent?: string
+  icon: React.ComponentType
+  category: "core" | "education" | "art" | "technology" | "service"
   color: string
   features: string[]
-  useCases: {
+  useCases: Array<{
     title: string
     description: string
-  }[]
+  }>
   relatedNodes: string[]
   content: {
     intro: string
@@ -43,6 +42,17 @@ export type EcosystemNode = {
     approach: string
     benefits: string[]
   }
+}
+
+export function getRelatedNodes(nodeId: string): EcosystemNode[] {
+  const node = ecosystemNodes.find((n) => n.id === nodeId)
+  if (!node?.relatedNodes) {
+    return []
+  }
+
+  return node.relatedNodes
+    .map((id) => ecosystemNodes.find((n) => n.id === id))
+    .filter((node): node is EcosystemNode => node !== undefined)
 }
 
 export const ecosystemNodes: EcosystemNode[] = [
@@ -919,13 +929,13 @@ export function getNodeById(id: string): EcosystemNode | undefined {
 }
 
 export function getRelatedNodes(nodeId: string): EcosystemNode[] {
-  const node = ecosystemNodes.find(n => n.id === nodeId)
-  if (!node || !node.relatedNodes) {
+  const node = ecosystemNodes.find((n) => n.id === nodeId)
+  if (!node?.relatedNodes) {
     return []
   }
-  
+
   return node.relatedNodes
-    .map(id => ecosystemNodes.find(n => n.id === id))
+    .map((id) => ecosystemNodes.find((n) => n.id === id))
     .filter((node): node is EcosystemNode => node !== undefined)
 }
 
