@@ -154,7 +154,7 @@ export default function AboutPage() {
             <div className="space-y-6">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4">What We Do</h2>
               <p className="text-lg text-muted-foreground">
-                At EATEK, we don't just build products. We build culture systems that empower creators, educators, and
+                At EATEK, we don&pos;t just build products. We build culture systems that empower creators, educators, and
                 innovators to make a meaningful impact.
               </p>
               <ul className="space-y-3">
@@ -198,7 +198,7 @@ export default function AboutPage() {
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4">Meet Our Team</h2>
             <p className="text-lg text-muted-foreground max-w-[800px] mx-auto">
-              The passionate individuals behind EATEK's vision and execution.
+              The passionate individuals behind EATEK&pos;s vision and execution.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -216,7 +216,7 @@ export default function AboutPage() {
             <div className="space-y-6">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4">Our Community</h2>
               <p className="text-lg text-muted-foreground">
-                EATEK is more than a company — it's a community of creators, educators, technologists, and changemakers
+                EATEK is more than a company — it&pos;s a community of creators, educators, technologists, and changemakers
                 united by a shared vision of the future.
               </p>
               <div className="space-y-4">

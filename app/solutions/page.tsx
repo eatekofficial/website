@@ -1,6 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowRight, Filter, Search } from "lucide-react"
+import * as LucideIcons from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -13,12 +14,47 @@ export const metadata = {
   description: "Explore EATEK's comprehensive suite of solutions across Education, Art, and Technology domains.",
 }
 
+// Create a mapping of icon names to their components
+const iconComponents: Record<string, React.ComponentType<{ className?: string }>> = {
+  Lightbulb: LucideIcons.Lightbulb,
+  BookOpen: LucideIcons.BookOpen,
+  Palette: LucideIcons.Palette,
+  Cpu: LucideIcons.Cpu,
+  Rocket: LucideIcons.Rocket,
+  Users: LucideIcons.Users,
+  LineChart: LucideIcons.LineChart,
+  School: LucideIcons.School,
+  ClipboardCheck: LucideIcons.ClipboardCheck,
+  FlaskConical: LucideIcons.FlaskConical,
+  Cloud: LucideIcons.Cloud,
+  BrainCircuit: LucideIcons.BrainCircuit,
+  Smartphone: LucideIcons.Smartphone,
+  PenTool: LucideIcons.PenTool,
+  VrHeadset: LucideIcons.HeadsetIcon,
+  Building: LucideIcons.Building,
+  BarChart3: LucideIcons.BarChart3,
+  GraduationCap: LucideIcons.GraduationCap,
+  Laptop: LucideIcons.Laptop,
+  Atom: LucideIcons.Atom,
+  Share2: LucideIcons.Share2,
+  Handshake: LucideIcons.Handshake,
+  Blocks: LucideIcons.Blocks,
+  Workflow: LucideIcons.Workflow,
+  Presentation: LucideIcons.Presentation,
+}
+
 export default function SolutionsPage() {
   // Group solutions by category
   const educationSolutions = getSolutionsByCategory("education")
   const artSolutions = getSolutionsByCategory("art")
   const technologySolutions = getSolutionsByCategory("technology")
   const coreSolutions = getSolutionsByCategory("core")
+
+  // Get icon component by name
+  const getIconComponent = (iconName: string) => {
+    const IconComponent = iconComponents[iconName] || LucideIcons.HelpCircle
+    return <IconComponent className="h-6 w-6" />
+  }
 
   // Get category color
   const getCategoryColor = (category: string) => {
@@ -94,6 +130,7 @@ export default function SolutionsPage() {
           solutions={educationSolutions}
           categoryColor={getCategoryColor("education")}
           categoryBadgeColor={getCategoryBadgeColor("education")}
+          getIconComponent={getIconComponent}
         />
 
         {/* Art Solutions */}
@@ -103,6 +140,7 @@ export default function SolutionsPage() {
           solutions={artSolutions}
           categoryColor={getCategoryColor("art")}
           categoryBadgeColor={getCategoryBadgeColor("art")}
+          getIconComponent={getIconComponent}
         />
 
         {/* Technology Solutions */}
@@ -112,6 +150,7 @@ export default function SolutionsPage() {
           solutions={technologySolutions}
           categoryColor={getCategoryColor("technology")}
           categoryBadgeColor={getCategoryBadgeColor("technology")}
+          getIconComponent={getIconComponent}
         />
 
         {/* Core Solutions */}
@@ -121,6 +160,7 @@ export default function SolutionsPage() {
           solutions={coreSolutions}
           categoryColor={getCategoryColor("core")}
           categoryBadgeColor={getCategoryBadgeColor("core")}
+          getIconComponent={getIconComponent}
         />
       </div>
 
@@ -163,12 +203,14 @@ function SolutionCategory({
   solutions,
   categoryColor,
   categoryBadgeColor,
+  getIconComponent,
 }: {
   title: string
   description: string
   solutions: any[]
   categoryColor: string
   categoryBadgeColor: string
+  getIconComponent: (iconName: string) => JSX.Element
 }) {
   return (
     <section className="mb-16">
@@ -205,7 +247,7 @@ function SolutionCategory({
               </div>
 
               <div className="absolute bottom-4 right-4 p-2 rounded-full bg-white/90 dark:bg-gray-900/90 shadow-lg">
-                {solution.icon}
+                {getIconComponent(solution.icon)}
               </div>
             </div>
 

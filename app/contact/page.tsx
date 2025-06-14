@@ -12,7 +12,7 @@ export default function ContactPage() {
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-6">Contact Us</h1>
             <p className="text-xl text-muted-foreground mb-8">
-              Have a question or want to work with us? We'd love to hear from you.
+              Have a question or want to work with us? We&apos;d love to hear from you.
             </p>
           </div>
         </div>
@@ -26,7 +26,7 @@ export default function ContactPage() {
               <div>
                 <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-6">Get In Touch</h2>
                 <p className="text-lg text-muted-foreground">
-                  Whether you're interested in our services, products, or just want to say hello, we're here to help.
+                  Whether you&apos;re interested in our services, products, or just want to say hello, we&apos;re here to help.
                 </p>
               </div>
 

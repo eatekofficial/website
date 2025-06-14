@@ -12,10 +12,42 @@ interface BlogPostPageProps {
   }
 }
 
+interface BlogPost {
+  title: string
+  description: string
+  content: string
+  image: string
+  date: string
+  readTime: string
+  category: string
+  author: {
+    name: string
+    bio: string
+    image: string
+    initials: string
+  }
+  relatedPosts: {
+    title: string
+    slug: string
+    image: string
+  }[]
+}
+
 export default function BlogPostPage({ params }: BlogPostPageProps) {
+  if (!params?.slug) {
+    return (
+      <div className="container py-12">
+        <p>Post not found</p>
+        <Link href="/blog" className="text-teal-600 hover:underline mt-4 inline-flex items-center">
+          <ArrowLeft className="w-4 h-4 mr-1" /> Back to Blog
+        </Link>
+      </div>
+    )
+  }
+
   // In a real application, you would fetch the blog post data based on the slug
   // For this example, we'll use hardcoded data
-  const post = {
+  const post: BlogPost = {
     title: "The Future of Creative Education: Merging Art and Technology",
     description:
       "An in-depth exploration of how educational institutions are reimagining curriculum to prepare students for a future where creativity and technical skills are equally valued.",

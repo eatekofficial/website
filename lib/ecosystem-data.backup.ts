@@ -1,38 +1,64 @@
+import { type LucideIcon } from "lucide-react"
+import type React from "react"
 import {
-  type LucideIcon,
-  Lightbulb,
-  BookOpen,
+  GraduationCap,
   Palette,
   Cpu,
-  Rocket,
-  Users,
-  LineChart,
-  School,
-  ClipboardCheck,
-  FlaskConical,
+  BookOpen,
+  Layers,
+  BarChart3,
+  Lightbulb,
   Cloud,
   BrainCircuit,
-  Smartphone,
+  Rocket,
+  Sparkles,
+  Microscope,
+  Gamepad2,
   PenTool,
-  HeadsetIcon as VrHeadset,
-  Building,
-  BarChart3,
+  Video,
+  Building2,
+  Users,
+  Workflow,
+  Laptop,
+  Headphones,
+  Atom,
+  Code,
+  Database,
+  LineChart,
+  Presentation,
+  Book,
+  Gauge,
+  Share2,
+  Globe,
+  Zap,
+  FileText,
+  MessageSquare,
+  Briefcase,
+  Network,
+  Shield,
+  Settings,
+  Server,
+  Smartphone,
+  FlaskConical as FlaskRoundIcon,
+  Camera,
+  Cuboid as Cube,
 } from "lucide-react"
 
-export type EcosystemNode = {
+export type EcosystemCategory = "core" | "education" | "art" | "technology" | "service"
+
+export interface EcosystemNode {
   id: string
-  name: string
   slug: string
+  name: string
   description: string
-  icon: LucideIcon
-  category: "core" | "education" | "art" | "technology" | "service"
-  parent?: string
+  icon: string | React.ReactNode
+  category: EcosystemCategory
   color: string
   features: string[]
-  useCases: {
+  useCases: Array<{
     title: string
     description: string
-  }[]
+  }>
   relatedNodes: string[]
   content: {
     intro: string
@@ -43,7 +69,58 @@ export type EcosystemNode = {
   }
 }
 
-export const ecosystemNodes: EcosystemNode[] = [
+// Create a mapping of icon names to their components
+const iconComponents: Record<string, React.ComponentType<any>> = {
+  Lightbulb,
+  BookOpen,
+  GraduationCap,
+  Palette,
+  Cpu,
+  Layers,
+  BarChart3,
+  Cloud,
+  BrainCircuit,
+  Rocket,
+  Sparkles,
+  Microscope,
+  Gamepad2,
+  PenTool,
+  Video,
+  Building2,
+  Users,
+  Workflow,
+  Laptop,
+  Headphones,
+  Atom,
+  Code,
+  Database,
+  LineChart,
+  Presentation,
+  Book,
+  Gauge,
+  Share2,
+  Globe,
+  Zap,
+  FileText,
+  MessageSquare,
+  Briefcase,
+  Network,
+  Shield,
+  Settings,
+  Server,
+  Smartphone,
+  Flask: FlaskRoundIcon,
+  Camera,
+  Cube,
+}
+
+// Helper function to get icon component by name
+export const getIcon = (name: string): React.ComponentType<any> => {
+  return iconComponents[name] || Lightbulb
+}
+
+// Define the nodes array
+const ecosystemNodes: EcosystemNode[] = [
   // Core Node
   {
     id: "eatek",
@@ -51,7 +128,7 @@ export const ecosystemNodes: EcosystemNode[] = [
     slug: "eatek-core",
     description:
       "The central hub of our ecosystem, connecting education, art, and technology to drive innovation and positive change.",
-    icon: Lightbulb,
+    icon: "Lightbulb",
     category: "core",
     color: "#6366f1",
     features: [
@@ -111,9 +188,8 @@ export const ecosystemNodes: EcosystemNode[] = [
     name: "Education",
     slug: "education",
     description: "Transforming learning experiences through innovative approaches, tools, and methodologies.",
-    icon: BookOpen,
+    icon: "BookOpen",
     category: "education",
-    parent: "eatek",
     color: "#0ea5e9",
     features: [
       "Lifelong learning pathways",
@@ -163,9 +239,8 @@ export const ecosystemNodes: EcosystemNode[] = [
     slug: "art",
     description:
       "Exploring creativity and expression through digital and traditional mediums, fostering cultural innovation.",
-    icon: Palette,
+    icon: "Palette",
     category: "art",
-    parent: "eatek",
     color: "#ec4899",
     features: [
       "Digital art creation tools",
@@ -212,9 +287,8 @@ export const ecosystemNodes: EcosystemNode[] = [
     name: "Technology",
     slug: "technology",
     description: "Developing and implementing innovative technological solutions to address complex challenges.",
-    icon: Cpu,
+    icon: "Cpu",
     category: "technology",
-    parent: "eatek",
     color: "#10b981",
     features: [
       "Emerging technology research",
@@ -265,16 +339,15 @@ export const ecosystemNodes: EcosystemNode[] = [
     slug: "e-learning-platforms",
     description:
       "Digital environments that facilitate online learning, offering courses, resources, and interactive experiences.",
-    icon: School,
+    icon: "GraduationCap",
     category: "education",
-    parent: "education",
     color: "#0284c7",
     features: [
       "Adaptive learning pathways",
-      "Interactive content creation",
-      "Learning analytics",
-      "Mobile-friendly interfaces",
+      "Interactive course content",
+      "Progress tracking and analytics",
       "Collaborative learning tools",
+      "Mobile and offline access",
     ],
     useCases: [
       {
@@ -314,9 +387,8 @@ export const ecosystemNodes: EcosystemNode[] = [
     name: "Assessment Tools",
     slug: "assessment-tools",
     description: "Solutions for evaluating learning outcomes, measuring progress, and providing meaningful feedback.",
-    icon: ClipboardCheck,
+    icon: "Layers",
     category: "education",
-    parent: "education",
     color: "#0369a1",
     features: [
       "Authentic assessment design",
@@ -363,9 +435,8 @@ export const ecosystemNodes: EcosystemNode[] = [
     name: "STEM Education",
     slug: "stem-education",
     description: "Programs and resources focused on science, technology, engineering, and mathematics learning.",
-    icon: FlaskConical,
+    icon: "Microscope",
     category: "education",
-    parent: "education",
     color: "#0ea5e9",
     features: [
       "Hands-on learning kits",
@@ -414,9 +485,8 @@ export const ecosystemNodes: EcosystemNode[] = [
     slug: "digital-media",
     description:
       "Creation and distribution of content across digital platforms, including video, audio, and interactive media.",
-    icon: Smartphone,
+    icon: "Video",
     category: "art",
-    parent: "art",
     color: "#db2777",
     features: [
       "Multi-platform content creation",
@@ -463,9 +533,8 @@ export const ecosystemNodes: EcosystemNode[] = [
     name: "Creative Tools",
     slug: "creative-tools",
     description: "Software, hardware, and methodologies that enable artistic creation and expression.",
-    icon: PenTool,
+    icon: "PenTool",
     category: "art",
-    parent: "art",
     color: "#be185d",
     features: [
       "Digital art software",
@@ -512,9 +581,8 @@ export const ecosystemNodes: EcosystemNode[] = [
     name: "Immersive Experiences",
     slug: "immersive-experiences",
     description: "Virtual, augmented, and mixed reality environments that create engaging, multi-sensory experiences.",
-    icon: VrHeadset,
+    icon: "Gamepad2",
     category: "art",
-    parent: "art",
     color: "#ec4899",
     features: [
       "Virtual reality environments",
@@ -564,9 +632,8 @@ export const ecosystemNodes: EcosystemNode[] = [
     name: "Enterprise Solutions",
     slug: "enterprise-solutions",
     description: "Comprehensive technology systems and services designed for organizational needs and challenges.",
-    icon: Building,
+    icon: "Building2",
     category: "technology",
-    parent: "technology",
     color: "#059669",
     features: [
       "Digital transformation strategy",
@@ -614,9 +681,8 @@ export const ecosystemNodes: EcosystemNode[] = [
     slug: "cloud-services",
     description:
       "Infrastructure, platforms, and software delivered over the internet, offering scalability and flexibility.",
-    icon: Cloud,
+    icon: "Cloud",
     category: "technology",
-    parent: "technology",
     color: "#047857",
     features: [
       "Cloud migration strategy",
@@ -664,9 +730,8 @@ export const ecosystemNodes: EcosystemNode[] = [
     slug: "ai-ml",
     description:
       "Artificial intelligence and machine learning solutions that automate tasks, generate insights, and enhance capabilities.",
-    icon: BrainCircuit,
+    icon: "BrainCircuit",
     category: "technology",
-    parent: "technology",
     color: "#10b981",
     features: [
       "Predictive analytics",
@@ -715,9 +780,8 @@ export const ecosystemNodes: EcosystemNode[] = [
     name: "Innovation Lab",
     slug: "innovation-lab",
     description: "A collaborative space for experimentation, prototyping, and developing cutting-edge solutions.",
-    icon: Rocket,
+    icon: "Rocket",
     category: "service",
-    parent: "eatek",
     color: "#8b5cf6",
     features: [
       "Rapid prototyping facilities",
@@ -764,9 +828,8 @@ export const ecosystemNodes: EcosystemNode[] = [
     name: "Startup Accelerator",
     slug: "startup-accelerator",
     description: "Programs and resources to help early-stage ventures grow, develop, and secure investment.",
-    icon: BarChart3,
+    icon: "BarChart3",
     category: "service",
-    parent: "eatek",
     color: "#7c3aed",
     features: [
       "Mentorship networks",
@@ -814,9 +877,8 @@ export const ecosystemNodes: EcosystemNode[] = [
     slug: "community-programs",
     description:
       "Initiatives that engage diverse stakeholders in learning, creating, and collaborating for collective benefit.",
-    icon: Users,
+    icon: "Users",
     category: "service",
-    parent: "eatek",
     color: "#6d28d9",
     features: [
       "Community workshops and events",
@@ -863,9 +925,8 @@ export const ecosystemNodes: EcosystemNode[] = [
     name: "Consulting Services",
     slug: "consulting-services",
     description: "Expert guidance and support for organizations navigating complex challenges and opportunities.",
-    icon: LineChart,
+    icon: "LineChart",
     category: "service",
-    parent: "eatek",
     color: "#5b21b6",
     features: [
       "Strategic planning",
@@ -908,17 +969,26 @@ export const ecosystemNodes: EcosystemNode[] = [
   },
 ]
 
-export function getNodeById(id: string): EcosystemNode | undefined {
-  return ecosystemNodes.find((node) => node.id === id)
-}
+// Get node by ID
+const getNodeById = (id: string): EcosystemNode | undefined => {
+  return ecosystemNodes.find((node) => node.id === id);
+};
 
-export function getRelatedNodes(nodeId: string): EcosystemNode[] {
-  const node = getNodeById(nodeId)
-  if (!node) return []
+// Get all nodes by category
+const getAllNodesByCategory = (category: EcosystemCategory): EcosystemNode[] => {
+  return ecosystemNodes.filter((node) => node.category === category);
+};
 
-  return node.relatedNodes.map((id) => getNodeById(id)).filter((node): node is EcosystemNode => node !== undefined)
-}
+// Get related nodes
+const getRelatedNodes = (nodeId: string): EcosystemNode[] => {
+  const node = getNodeById(nodeId);
+  if (!node) return [];
 
-export function getAllNodesByCategory(category: EcosystemNode["category"]): EcosystemNode[] {
-  return ecosystemNodes.filter((node) => node.category === category)
-}
+  return node.relatedNodes
+    .map((id) => getNodeById(id))
+    .filter((n): n is EcosystemNode => n !== undefined);
+};
+
+// Export the nodes array and utility functions
+export { ecosystemNodes, getNodeById, getAllNodesByCategory, getRelatedNodes };
+export default ecosystemNodes;

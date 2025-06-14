@@ -182,7 +182,7 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            What if the next big revolution wasn't tech, art, or education — but all three at once?
+            What if the next big revolution wasn&apos;t tech, art, or education — but all three at once?
           </motion.h1>
 
           <motion.p

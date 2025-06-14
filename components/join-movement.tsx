@@ -12,7 +12,6 @@ import { Building, Briefcase, Palette } from "lucide-react"
 export default function JoinMovement() {
   const sectionRef = useRef<HTMLElement>(null)
   const isInView = useInView(sectionRef, { once: true, amount: 0.3 })
-  const [category, setCategory] = useState<string>("creator")
 
   return (
     <section id="join" ref={sectionRef} className="py-20 bg-gradient-to-b from-background/90 to-background">
@@ -27,7 +26,7 @@ export default function JoinMovement() {
             Join the Movement / Early Builders
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            EATEK is not launching a product. We're activating a future.
+            EATEK is not launching a product. We&apos;re activating a future.
           </p>
         </motion.div>
 
@@ -63,7 +62,7 @@ export default function JoinMovement() {
               <div>
                 <h3 className="text-xl font-bold mb-2">Investors/Supporters</h3>
                 <p className="text-muted-foreground">
-                  Be part of the emotional utility era. Support the vision that's redefining the intersection of
+                  Be part of the emotional utility era. Support the vision that&apos;s redefining the intersection of
                   creativity and technology.
                 </p>
               </div>
@@ -96,7 +95,7 @@ export default function JoinMovement() {
 
               <div className="space-y-2">
                 <Label>I am a:</Label>
-                <RadioGroup defaultValue="creator" className="grid grid-cols-2 gap-4" onValueChange={setCategory}>
+                <RadioGroup defaultValue="creator" className="grid grid-cols-2 gap-4">
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="creator" id="creator" />
                     <Label htmlFor="creator">Creator</Label>

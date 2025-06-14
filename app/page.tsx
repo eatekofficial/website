@@ -61,7 +61,7 @@ export default function Page() {
         <div className="container px-4 md:px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Transform Your Ideas into Reality?</h2>
           <p className="text-lg text-white/80 mb-8 max-w-2xl mx-auto">
-            Let's discuss how our expertise in Education, Art, and Technology can help you create innovative solutions.
+            Let&apos;s discuss how our expertise in Education, Art, and Technology can help you create innovative solutions.
           </p>
           <Button asChild size="lg" variant="outline" className="bg-white text-teal-600 hover:bg-white/90 border-none">
             <Link href="/contact">

@@ -55,7 +55,7 @@ export default function NarrativeScroll() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6 }}
         >
-          The Problem We're Solving
+          The Problem We&apos;re Solving
         </motion.h2>
 
         <motion.div
@@ -85,7 +85,7 @@ export default function NarrativeScroll() {
         >
           <Zap className="h-12 w-12 mx-auto mb-4 text-teal-600" />
           <h3 className="text-2xl font-bold mb-4 text-blue-800">Our Response</h3>
-          <p className="text-xl">"We're building intersectional systems that empower, not overwhelm."</p>
+          <p className="text-xl">&quot;We&apos;re building intersectional systems that empower, not overwhelm.&quot;</p>
         </motion.div>
       </div>
     </section>

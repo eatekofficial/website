@@ -39,7 +39,6 @@ interface TechCategory {
 
 export default function TechnologyStack() {
   const [activeCategory, setActiveCategory] = useState<number>(0)
-  const [isInView, setIsInView] = useState(false)
   const sectionRef = useRef<HTMLDivElement>(null)
 
   const techCategories: TechCategory[] = [
@@ -228,7 +227,7 @@ export default function TechnologyStack() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsInView(entry.isIntersecting)
+        // Removed setIsInView(entry.isIntersecting)
       },
       { threshold: 0.1 },
     )

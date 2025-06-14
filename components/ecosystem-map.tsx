@@ -1,14 +1,14 @@
 "use client"
 
 import React from "react"
-
 import { useRef, useState, useEffect } from "react"
-import { ecosystemNodes } from "./ecosystem-data"
+import { ecosystemNodes } from "@/lib/ecosystem-data"
 import { useMobile } from "@/hooks/use-mobile"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { ZoomIn, ZoomOut, Home, Info, X, Search } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { getIconComponent } from "../lib/icons"
 
 interface NodePosition {
   x: number
@@ -21,21 +21,32 @@ interface NodePosition {
   orbitAngle: number
 }
 
-export default function EcosystemMap() {
+interface EcosystemMapProps {
+  coreNodes?: any[]
+  educationNodes?: any[]
+  artNodes?: any[]
+  technologyNodes?: any[]
+  serviceNodes?: any[]
+}
+
+export default function EcosystemMap({
+  coreNodes = [],
+  educationNodes = [],
+  artNodes = [],
+  technologyNodes = [],
+  serviceNodes = []
+}: EcosystemMapProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const animationRef = useRef<number>(0)
-  const isMobile = useMobile()
-
-  const [positions, setPositions] = useState<Record<string, NodePosition>>({})
-  const [zoom, setZoom] = useState(1)
-  const [pan, setPan] = useState({ x: 0, y: 0 })
-  const [isDragging, setIsDragging] = useState(false)
-  const [dragStart, setDragStart] = useState({ x: 0, y: 0 })
-  const [showInfo, setShowInfo] = useState(false)
-  const [hoveredNode, setHoveredNode] = useState<string | null>(null)
-  const [activeNode, setActiveNode] = useState<string | null>(null)
   const [dimensions, setDimensions] = useState({ width: 1000, height: 700 })
+  const [scale, setScale] = useState(1)
+  const [position, setPosition] = useState({ x: 0, y: 0 })
+  const [activeNode, setActiveNode] = useState<string | null>(null)
+  const isMobile = useMobile()
+  const [isDragging, setIsDragging] = useState(false)
+  const [startPos, setStartPos] = useState({ x: 0, y: 0 })
+  const [isInitialized, setIsInitialized] = useState(false)
+  const [nodePositions, setNodePositions] = useState<{[key: string]: NodePosition}>({})
 
   // Initialize node positions
   useEffect(() => {
@@ -53,65 +64,69 @@ export default function EcosystemMap() {
       orbitAngle: 0,
     }
 
-    // Main categories orbit around EATEK
-    const mainCategories = ["education", "art", "technology"]
-    mainCategories.forEach((id, index) => {
-      const angle = (index * 2 * Math.PI) / mainCategories.length
-      const orbitRadius = 200
-      initialPositions[id] = {
-        x: Math.cos(angle) * orbitRadius,
-        y: Math.sin(angle) * orbitRadius,
-        angle,
-        speed: 0.0003,
+    // Main categories in a circle around the core
+    const mainCategories = ecosystemNodes.filter((node) => 
+      node.relatedNodes.includes("eatek") && node.id !== "eatek"
+    )
+    
+    mainCategories.forEach((node, index) => {
+      const angle = (index / mainCategories.length) * Math.PI * 2
+      const distance = isMobile ? 120 : 180
+      
+      initialPositions[node.id] = {
+        x: Math.cos(angle) * distance,
+        y: Math.sin(angle) * distance,
+        angle: 0,
+        speed: 0.002,
         radius: 30,
-        orbitRadius,
-        orbitSpeed: 0.00005,
+        orbitRadius: distance,
+        orbitSpeed: 0.0005,
         orbitAngle: angle,
       }
     })
 
-    // Subcategories orbit around their parent categories
+    // Subcategories orbit around their related main categories
     ecosystemNodes.forEach((node) => {
-      if (node.parent && node.parent !== "eatek" && !initialPositions[node.id]) {
-        const parentPos = initialPositions[node.parent]
+      if (node.id === "eatek" || initialPositions[node.id]) return
+      
+      // Find the first main category this node is related to
+      const mainCategory = mainCategories.find(cat => 
+        node.relatedNodes.includes(cat.id)
+      )
+      
+      if (mainCategory) {
+        const parentPos = initialPositions[mainCategory.id]
         if (parentPos) {
-          const subCategoryCount = ecosystemNodes.filter((n) => n.parent === node.parent).length
-          const index = ecosystemNodes.filter((n) => n.parent === node.parent).findIndex((n) => n.id === node.id)
-          const angle = parentPos.angle + (index * 2 * Math.PI) / subCategoryCount
-          const orbitRadius = 120
-
-          initialPositions[node.id] = {
-            x: parentPos.x + Math.cos(angle) * orbitRadius,
-            y: parentPos.y + Math.sin(angle) * orbitRadius,
-            angle,
-            speed: 0.0005,
-            radius: 20,
-            orbitRadius,
-            orbitSpeed: 0.0001,
-            orbitAngle: angle,
+          const subCategoryCount = ecosystemNodes.filter(n => 
+            n.id !== mainCategory.id && 
+            n.relatedNodes.includes(mainCategory.id) && 
+            !initialPositions[n.id]
+          ).length
+          
+          if (subCategoryCount > 0) {
+            const index = ecosystemNodes
+              .filter(n => n.relatedNodes.includes(mainCategory.id) && !initialPositions[n.id])
+              .findIndex(n => n.id === node.id)
+              
+            const angle = (index / subCategoryCount) * Math.PI * 2
+            const distance = isMobile ? 90 : 120
+            
+            initialPositions[node.id] = {
+              x: parentPos.x + Math.cos(angle) * distance,
+              y: parentPos.y + Math.sin(angle) * distance,
+              angle: 0,
+              speed: 0.003,
+              radius: 20,
+              orbitRadius: distance,
+              orbitSpeed: 0.0008,
+              orbitAngle: angle,
+            }
           }
         }
       }
     })
 
-    // Services orbit around EATEK at a different radius
-    const services = ecosystemNodes.filter((node) => node.category === "service")
-    services.forEach((service, index) => {
-      const angle = (index * 2 * Math.PI) / services.length + Math.PI / 6
-      const orbitRadius = 150
-      initialPositions[service.id] = {
-        x: Math.cos(angle) * orbitRadius,
-        y: Math.sin(angle) * orbitRadius,
-        angle,
-        speed: 0.0004,
-        radius: 25,
-        orbitRadius,
-        orbitSpeed: 0.00007,
-        orbitAngle: angle,
-      }
-    })
-
-    setPositions(initialPositions)
+    setNodePositions(initialPositions)
   }, [])
 
   // Update dimensions on resize
@@ -133,37 +148,29 @@ export default function EcosystemMap() {
 
   // Animation loop for orbital movement
   useEffect(() => {
-    if (Object.keys(positions).length === 0) return
+    if (Object.keys(nodePositions).length === 0) return
 
     const animate = () => {
-      setPositions((prevPositions) => {
+      setNodePositions((prevPositions) => {
         const newPositions = { ...prevPositions }
 
-        // Update orbital positions
+        // Update node positions
         Object.keys(newPositions).forEach((nodeId) => {
-          if (nodeId === "eatek") return // Skip EATEK core
-
           const pos = newPositions[nodeId]
           const node = ecosystemNodes.find((n) => n.id === nodeId)
 
-          if (node && node.parent) {
-            const parentId = node.parent
-            const parentPos = newPositions[parentId]
+          if (node && node.relatedNodes && node.relatedNodes.length > 0) {
+            // Find the first related node that exists in our positions
+            const parentId = node.relatedNodes.find(id => id in newPositions)
+            const parentPos = parentId ? newPositions[parentId] : null
 
             if (parentPos) {
               // Update orbit angle
-              pos.orbitAngle += pos.orbitSpeed
+              pos.orbitAngle = (pos.orbitAngle + pos.orbitSpeed) % (Math.PI * 2)
 
               // Calculate new position based on parent's position and orbit
-              if (parentId === "eatek") {
-                // Direct orbit around EATEK
-                pos.x = Math.cos(pos.orbitAngle) * pos.orbitRadius
-                pos.y = Math.sin(pos.orbitAngle) * pos.orbitRadius
-              } else {
-                // Orbit around another node that itself orbits
-                pos.x = parentPos.x + Math.cos(pos.orbitAngle) * pos.orbitRadius
-                pos.y = parentPos.y + Math.sin(pos.orbitAngle) * pos.orbitRadius
-              }
+              pos.x = parentPos.x + Math.cos(pos.orbitAngle) * pos.orbitRadius
+              pos.y = parentPos.y + Math.sin(pos.orbitAngle) * pos.orbitRadius
             }
           }
         })
@@ -171,15 +178,11 @@ export default function EcosystemMap() {
         return newPositions
       })
 
-      animationRef.current = requestAnimationFrame(animate)
+      requestAnimationFrame(animate)
     }
 
-    animationRef.current = requestAnimationFrame(animate)
-
-    return () => {
-      cancelAnimationFrame(animationRef.current)
-    }
-  }, [positions])
+    animate()
+  }, [nodePositions])
 
   interface Star {
     x: number
@@ -251,18 +254,18 @@ export default function EcosystemMap() {
     if (e.button !== 0) return // Only left mouse button
 
     setIsDragging(true)
-    setDragStart({
-      x: e.clientX - pan.x,
-      y: e.clientY - pan.y,
+    setStartPos({
+      x: e.clientX - position.x,
+      y: e.clientY - position.y,
     })
   }
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!isDragging) return
 
-    setPan({
-      x: e.clientX - dragStart.x,
-      y: e.clientY - dragStart.y,
+    setPosition({
+      x: e.clientX - startPos.x,
+      y: e.clientY - startPos.y,
     })
   }
 
@@ -279,17 +282,17 @@ export default function EcosystemMap() {
 
     // Adjust zoom based on wheel direction
     const delta = e.deltaY > 0 ? -0.1 : 0.1
-    const newZoom = Math.max(0.5, Math.min(3, zoom + delta))
+    const newScale = Math.max(0.5, Math.min(3, scale + delta))
 
-    setZoom(newZoom)
+    setScale(newScale)
   }
 
   const handleTouchStart = (e: React.TouchEvent) => {
     if (e.touches.length === 1) {
       setIsDragging(true)
-      setDragStart({
-        x: e.touches[0].clientX - pan.x,
-        y: e.touches[0].clientY - pan.y,
+      setStartPos({
+        x: e.touches[0].clientX - position.x,
+        y: e.touches[0].clientY - position.y,
       })
     }
   }
@@ -297,9 +300,9 @@ export default function EcosystemMap() {
   const handleTouchMove = (e: React.TouchEvent) => {
     if (!isDragging || e.touches.length !== 1) return
 
-    setPan({
-      x: e.touches[0].clientX - dragStart.x,
-      y: e.touches[0].clientY - dragStart.y,
+    setPosition({
+      x: e.touches[0].clientX - startPos.x,
+      y: e.touches[0].clientY - startPos.y,
     })
   }
 
@@ -309,25 +312,25 @@ export default function EcosystemMap() {
 
   // Zoom controls
   const handleZoomIn = () => {
-    setZoom(Math.min(zoom + 0.2, 3))
+    setScale(Math.min(scale + 0.2, 3))
   }
 
   const handleZoomOut = () => {
-    setZoom(Math.max(zoom - 0.2, 0.5))
+    setScale(Math.max(scale - 0.2, 0.5))
   }
 
   const handleResetView = () => {
-    setZoom(1)
-    setPan({ x: 0, y: 0 })
+    setScale(1)
+    setPosition({ x: 0, y: 0 })
   }
 
   const toggleInfo = () => {
-    setShowInfo(!showInfo)
+    // toggle info panel
   }
 
   // Node interaction
   const handleNodeHover = (nodeId: string | null) => {
-    setHoveredNode(nodeId)
+    // handle node hover
   }
 
   const handleNodeClick = (nodeId: string) => {
@@ -347,27 +350,27 @@ export default function EcosystemMap() {
     const node = ecosystemNodes.find((n) => n.id === nodeId)
     if (!node) return 20
 
-    const pos = positions[nodeId]
+    const pos = nodePositions[nodeId]
     if (!pos) return 20
 
-    let size = pos.radius
+    const size = pos.radius
 
     // Increase size for hovered or active nodes
-    if (hoveredNode === nodeId || activeNode === nodeId) {
-      size *= 1.2
-    }
+    // if (hoveredNode === nodeId || activeNode === nodeId) {
+    //   size *= 1.2
+    // }
 
     return size
   }
 
   // Calculate screen position from world position
   const getScreenPosition = (nodeId: string) => {
-    const pos = positions[nodeId]
+    const pos = nodePositions[nodeId]
     if (!pos) return { x: 0, y: 0 }
 
     return {
-      x: pos.x * zoom + pan.x + dimensions.width / 2,
-      y: pos.y * zoom + pan.y + dimensions.height / 2,
+      x: pos.x * scale + position.x + dimensions.width / 2,
+      y: pos.y * scale + position.y + dimensions.height / 2,
     }
   }
 
@@ -384,7 +387,7 @@ export default function EcosystemMap() {
               (conn.from === node.id && conn.to === relatedId) || (conn.from === relatedId && conn.to === node.id),
           )
 
-          if (!exists && positions[node.id] && positions[relatedId]) {
+          if (!exists && nodePositions[node.id] && nodePositions[relatedId]) {
             connections.push({ from: node.id, to: relatedId })
           }
         })
@@ -395,10 +398,10 @@ export default function EcosystemMap() {
   }
 
   // Get connection opacity based on node states
-  const getConnectionOpacity = (fromId: string, toId: string) => {
-    if (hoveredNode === fromId || hoveredNode === toId) return 0.8
-    if (activeNode === fromId || activeNode === toId) return 0.8
-    if (!activeNode && !hoveredNode) return 0.4
+  const getConnectionOpacity = () => {
+    // if (hoveredNode === fromId || hoveredNode === toId) return 0.8
+    // if (activeNode === fromId || activeNode === toId) return 0.8
+    // if (!activeNode && !hoveredNode) return 0.4
     return 0.1
   }
 
@@ -425,7 +428,7 @@ export default function EcosystemMap() {
         <div
           className="absolute inset-0 origin-center"
           style={{
-            transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
+            transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
             transformOrigin: "center",
             transition: isDragging ? "none" : "transform 0.1s ease-out",
           }}
@@ -464,7 +467,7 @@ export default function EcosystemMap() {
                   y1={fromPos.y}
                   x2={toPos.x}
                   y2={toPos.y}
-                  stroke={`rgba(255, 255, 255, ${getConnectionOpacity(from, to)})`}
+                  stroke={`rgba(255, 255, 255, ${getConnectionOpacity()})`}
                   strokeWidth={from === "eatek" || to === "eatek" ? 2 : 1}
                   strokeDasharray={from === "eatek" || to === "eatek" ? "" : "3 2"}
                 />
@@ -473,7 +476,7 @@ export default function EcosystemMap() {
           </svg>
 
           {/* Nodes */}
-          {Object.keys(positions).map((nodeId) => {
+          {Object.keys(nodePositions).map((nodeId) => {
             const node = ecosystemNodes.find((n) => n.id === nodeId)
             if (!node) return null
 
@@ -488,7 +491,7 @@ export default function EcosystemMap() {
                 style={{
                   left: screenPos.x,
                   top: screenPos.y,
-                  zIndex: hoveredNode === nodeId || activeNode === nodeId ? 20 : 10,
+                  zIndex: 10,
                 }}
                 onMouseEnter={() => handleNodeHover(nodeId)}
                 onMouseLeave={() => handleNodeHover(null)}
@@ -508,15 +511,11 @@ export default function EcosystemMap() {
                 >
                   {/* Node icon */}
                   <div className="text-white">
-                    {node.icon &&
-                      React.createElement(node.icon, {
-                        size: nodeSize * 0.5,
-                        className: "text-white",
-                      })}
+                    {node.icon && getIconComponent(node.icon, "w-4 h-4")}
                   </div>
 
                   {/* Orbital ring for main category nodes */}
-                  {node.category !== "core" && node.parent === "eatek" && (
+                  {node.relatedNodes.includes("eatek") && (
                     <div
                       className="absolute rounded-full border border-white/20"
                       style={{
@@ -529,13 +528,13 @@ export default function EcosystemMap() {
                 </motion.div>
 
                 {/* Node label */}
-                {(hoveredNode === nodeId || activeNode === nodeId) && (
+                {(activeNode === nodeId) && (
                   <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 whitespace-nowrap z-30">
                     <div className="bg-gray-900/90 backdrop-blur-sm rounded-md px-3 py-1.5 shadow-lg border border-gray-800">
                       <p className="font-medium text-white text-sm">{node.name}</p>
-                      {activeNode === nodeId && (
-                        <p className="text-xs text-gray-400 max-w-[200px]">{node.description}</p>
-                      )}
+                      <p className="text-xs text-gray-400">
+                        {node.category.charAt(0).toUpperCase() + node.category.slice(1)}
+                      </p>
                     </div>
                   </div>
                 )}
@@ -552,7 +551,7 @@ export default function EcosystemMap() {
             className="h-8 w-8 rounded-full bg-gray-900/80 backdrop-blur-sm border-gray-700 text-white hover:bg-gray-800"
             onClick={toggleInfo}
           >
-            {showInfo ? <X className="h-4 w-4" /> : <Info className="h-4 w-4" />}
+            <Info className="h-4 w-4" />
           </Button>
 
           <Button
@@ -584,38 +583,14 @@ export default function EcosystemMap() {
         </div>
 
         {/* Info panel */}
-        {showInfo && (
-          <div className="absolute top-4 left-4 z-30 bg-gray-900/80 backdrop-blur-sm rounded-lg p-3 shadow-md border border-gray-800 max-w-xs">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <Info className="h-4 w-4 text-blue-400" />
-                <span className="text-sm font-medium text-white">Interactive Universe</span>
-              </div>
-              <Button
-                size="icon"
-                variant="ghost"
-                className="h-6 w-6 rounded-full hover:bg-gray-800/50"
-                onClick={toggleInfo}
-              >
-                <X className="h-3 w-3 text-gray-400" />
-              </Button>
-            </div>
-            <div className="space-y-2 text-xs text-gray-300">
-              <p>
-                • <span className="text-white">Drag</span> to pan around the universe
-              </p>
-              <p>
-                • <span className="text-white">Scroll</span> or use zoom buttons to zoom in/out
-              </p>
-              <p>
-                • <span className="text-white">Click</span> on a node to explore its connections
-              </p>
-              <p>
-                • <span className="text-white">Click</span> on a node name to visit its page
-              </p>
-            </div>
+        {/* <div className="absolute top-4 left-4 z-30 bg-gray-900/80 backdrop-blur-sm rounded-lg p-3 shadow-md border border-gray-800 max-w-xs">
+          <div className="text-white text-sm">
+            <p>
+              For the best experience viewing our ecosystem map, please rotate your device to landscape mode or visit
+              on a larger screen.
+            </p>
           </div>
-        )}
+        </div> */}
 
         {/* Node details panel */}
         {activeNode && (
@@ -628,7 +603,7 @@ export default function EcosystemMap() {
                 <>
                   <div className="flex items-center gap-3 mb-2">
                     <div className="p-2 rounded-lg text-white" style={{ background: node.color }}>
-                      {React.createElement(node.icon, { size: 24 })}
+                      {node.icon && getIconComponent(node.icon, "w-6 h-6")}
                     </div>
                     <div>
                       <h3 className="font-medium text-white text-lg">{node.name}</h3>
