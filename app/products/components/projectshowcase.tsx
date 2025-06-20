@@ -29,7 +29,7 @@ export default function ProjectShowcase() {
             {projects.map((project, index) => (
               <ProjectCard
                 key={project.id}
-                project={project}
+                project={project}   
                 index={index}
                 isVisible={visibleCards.includes(index)}
                 totalCards={projects.length}
