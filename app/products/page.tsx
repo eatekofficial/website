@@ -2,7 +2,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
-import ProductDetail from "@/components/product-detail"
+import Productscards from "./components/Products"
+import ProjectSlidshow from "./components/projectshowcase"
 
 export default function ProductsPage() {
   const products = [
@@ -96,7 +97,7 @@ export default function ProductsPage() {
   return (
     <div className="flex min-h-screen flex-col">
       {/* Hero Section */}
-      <section className="relative py-20 md:py-32 bg-gradient-to-b from-blue-50 via-blue-100 to-background">
+      <section className="relative py-20 md:py-32">
         <div className="container px-4 md:px-6">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-6">Our Products</h1>
@@ -110,8 +111,17 @@ export default function ProductsPage() {
         </div>
       </section>
 
+
+      <div className="container min-h-screen w-full">
+        <Productscards />
+      </div>
+
+      <div className="container min-h-screen w-full">
+        <ProjectSlidshow />
+      </div>
+
       {/* Products Overview */}
-      <section className="py-12">
+      <section className="py-12 hidden">
         <div className="container px-4 md:px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {products.map((product, index) => (
@@ -184,9 +194,12 @@ export default function ProductsPage() {
       </section>
 
       {/* Individual Product Sections */}
-      {products.map((product, index) => (
+      {/* {products.map((product, index) => (
         <ProductDetail key={index} product={product} isEven={index % 2 === 0} />
-      ))}
+      ))} */}
+
+
+
 
       {/* Product Roadmap */}
       <section className="py-20 bg-muted/30">
