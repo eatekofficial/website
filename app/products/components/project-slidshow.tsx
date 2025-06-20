@@ -58,8 +58,9 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, isVisi
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
       `}
       style={{
-        top: `${index * 20}px`,
-        zIndex: (index + 1) * 10, // First card z-10, second z-20, third z-30, etc.
+        top: `${index * 30 + 100}px`, // Increased spacing between cards (80px) and initial offset (20px)
+        zIndex: (index + 1) * 2,
+       
       }}
     >
       {/* Project Image */}

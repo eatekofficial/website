@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { ArrowRight, Search } from "lucide-react"
 import { Input } from "@/components/ui/input"
+import Blog from "./components/blog"
 import AnimatedSection from "@/components/animated-section"
 
 export default function BlogPage() {
@@ -116,7 +117,7 @@ export default function BlogPage() {
   return (
     <div className="flex min-h-screen flex-col">
       {/* Hero Section */}
-      <section className="relative py-20 md:py-32 bg-gradient-to-b from-teal-50 via-blue-50 to-background">
+      <section className="relative py-20 md:py-32">
         <div className="container px-4 md:px-6">
           <div className="max-w-3xl mx-auto text-center">
             <AnimatedSection>
@@ -130,6 +131,10 @@ export default function BlogPage() {
           </div>
         </div>
       </section>
+
+      <div className="container">
+        <Blog/>
+      </div>
 
       {/* Search and Categories */}
       <section className="py-8 border-b">
