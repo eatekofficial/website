@@ -219,7 +219,7 @@ export default function ServicesPage() {
               <h3 className="text-xl font-bold mb-2">How long does a typical project take?</h3>
               <p className="text-muted-foreground">
                 Project timelines vary depending on scope and complexity. A simple website might take 2-4 weeks, while a
-                complex application could take several months. We'll provide a detailed timeline during our initial
+                complex application could take several months. We&apos;ll provide a detailed timeline during our initial
                 consultation.
               </p>
             </div>
@@ -233,7 +233,7 @@ export default function ServicesPage() {
             <div className="bg-card p-6 rounded-lg border">
               <h3 className="text-xl font-bold mb-2">Can you work with our existing team?</h3>
               <p className="text-muted-foreground">
-                We're experienced in collaborating with in-house teams and can adapt our approach to complement your
+                We&apos;re experienced in collaborating with in-house teams and can adapt our approach to complement your
                 existing resources and workflows.
               </p>
             </div>
@@ -241,7 +241,7 @@ export default function ServicesPage() {
               <h3 className="text-xl font-bold mb-2">How do you approach pricing?</h3>
               <p className="text-muted-foreground">
                 We offer both project-based and retainer pricing models. Our pricing is transparent and based on the
-                scope, complexity, and timeline of your project. We're happy to discuss options that fit your budget.
+                scope, complexity, and timeline of your project. We&apos;re happy to discuss options that fit your budget.
               </p>
             </div>
           </div>
@@ -253,7 +253,7 @@ export default function ServicesPage() {
         <div className="container px-4 md:px-6 text-center">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">Ready to transform your digital presence?</h2>
           <p className="text-lg mb-6 max-w-[800px] mx-auto opacity-90">
-            Let's discuss how our services can help you achieve your goals.
+            Let&apos;s discuss how our services can help you achieve your goals.
           </p>
           <Button asChild variant="secondary" size="lg">
             <Link href="/contact">Contact Us Today</Link>

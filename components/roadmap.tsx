@@ -47,7 +47,7 @@ export default function Roadmap() {
           <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-r from-teal-500 via-blue-600 to-teal-600">
             Roadmap & Progress Tracker
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">We're building in public. With soul.</p>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">We&apos;re building in public. With soul.</p>
         </motion.div>
 
         <div className="max-w-3xl mx-auto">

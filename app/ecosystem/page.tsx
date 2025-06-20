@@ -20,9 +20,13 @@ export default function EcosystemPage() {
         </p>
       </div>
 
-      <div className="mb-16">
-        <EcosystemMap />
-      </div>
+      <EcosystemMap 
+        coreNodes={coreNodes}
+        educationNodes={educationNodes}
+        artNodes={artNodes}
+        technologyNodes={technologyNodes}
+        serviceNodes={serviceNodes}
+      />
 
       <div className="grid gap-16">
         <section>

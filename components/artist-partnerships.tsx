@@ -116,7 +116,7 @@ export default function ArtistPartnerships() {
                   <h3 className="text-xl font-bold text-gray-900 mb-2">{partnership.artist}</h3>
                   <p className="text-gray-600 text-sm mb-4">{partnership.collaboration}</p>
                   <blockquote className="italic text-gray-700 border-l-4 border-purple-300 pl-4 py-1 mb-4">
-                    "{partnership.quote}"
+                    &quot;{partnership.quote}&quot;
                   </blockquote>
                   <Link
                     href={`/artist-partnerships/${partnership.artist.toLowerCase().replace(/\s+/g, "-")}`}

@@ -1,24 +1,9 @@
-import { type ReactElement } from "react"
-import {
-  GraduationCap,
-  BarChart3,
-  Lightbulb,
-  Blocks,
-  Workflow,
-  Laptop,
-  Atom,
-  School,
-  Presentation,
-  Share2,
-  Handshake,
-} from "lucide-react"
-
 // Define the solution node type
 export interface SolutionNode {
   id: string
   slug: string
   name: string
-  icon: () => ReactElement // Fix: Wrap in a function
+  icon: string
   description: string
   fullDescription?: string
   overview?: string[]
@@ -32,7 +17,7 @@ export interface SolutionNode {
   features?: Array<{
     title: string
     description: string
-    icon?: React.ReactNode
+    icon?: string
   }>
   benefits?: Array<{
     title: string
@@ -185,7 +170,7 @@ export const solutionNodes: SolutionNode[] = [
     id: "eatek",
     slug: "eatek-ecosystem",
     name: "EATEK Ecosystem",
-    icon: () => <Atom className="h-6 w-6" />, // Fix: Wrap in a function
+    icon: "Atom",
     description: "Education, Art & Technology Ecosystem",
     fullDescription:
       "The EATEK Ecosystem is a comprehensive framework that integrates education, art, and technology to create innovative solutions for the modern world. Our ecosystem approach ensures that all solutions work together seamlessly, providing a holistic experience for users across domains.",
@@ -205,23 +190,23 @@ export const solutionNodes: SolutionNode[] = [
         title: "Seamless Integration",
         description:
           "All solutions within the ecosystem are designed to work together seamlessly, providing a unified experience.",
-        icon: <Share2 className="h-5 w-5" />,
+        icon: "Share2",
       },
       {
         title: "Cross-Domain Innovation",
         description:
           "Leveraging the strengths of education, art, and technology to create unique and powerful solutions.",
-        icon: <Lightbulb className="h-5 w-5" />,
+        icon: "Lightbulb",
       },
       {
         title: "Scalable Architecture",
         description: "Built on a flexible and scalable foundation that can adapt to changing needs and technologies.",
-        icon: <Blocks className="h-5 w-5" />,
+        icon: "Blocks",
       },
       {
         title: "Comprehensive Support",
         description: "End-to-end support for all solutions within the ecosystem, ensuring a smooth experience.",
-        icon: <Handshake className="h-5 w-5" />,
+        icon: "Handshake",
       },
     ],
     benefits: [
@@ -299,7 +284,7 @@ export const solutionNodes: SolutionNode[] = [
     id: "education",
     slug: "education-solutions",
     name: "Education Solutions",
-    icon: () => <GraduationCap className="h-6 w-6" />,
+    icon: "GraduationCap",
     description: "Learning platforms and educational technology",
     fullDescription:
       "EATEK's Education Solutions provide comprehensive tools and platforms for modern learning environments. From e-learning platforms to assessment tools, our solutions are designed to enhance the educational experience for students and educators alike.",
@@ -327,22 +312,22 @@ export const solutionNodes: SolutionNode[] = [
       {
         title: "Comprehensive Learning Management",
         description: "End-to-end platforms for course creation, delivery, and management.",
-        icon: <School className="h-5 w-5" />,
+        icon: "School",
       },
       {
         title: "Interactive Learning Experiences",
         description: "Engaging and immersive educational content that enhances retention and understanding.",
-        icon: <Presentation className="h-5 w-5" />,
+        icon: "Presentation",
       },
       {
         title: "Advanced Assessment Tools",
         description: "Sophisticated evaluation mechanisms that provide meaningful insights into student progress.",
-        icon: <BarChart3 className="h-5 w-5" />,
+        icon: "BarChart3",
       },
       {
         title: "Personalized Learning Paths",
         description: "Adaptive learning experiences tailored to individual student needs and learning styles.",
-        icon: <Workflow className="h-5 w-5" />,
+        icon: "Workflow",
       },
     ],
     benefits: [
@@ -415,7 +400,7 @@ export const solutionNodes: SolutionNode[] = [
     id: "e-learning",
     slug: "e-learning-platform",
     name: "E-Learning Platform",
-    icon: () => <Laptop className="h-6 w-6" />,
+    icon: "Laptop",
     description: "Interactive online learning environments",
     fullDescription:
       "EATEK's E-Learning Platform provides a comprehensive solution for creating, delivering, and managing online courses and educational content. The platform is designed to be intuitive, engaging, and effective for both educators and learners.",
@@ -434,22 +419,22 @@ export const solutionNodes: SolutionNode[] = [
       {
         title: "Course Creation Studio",
         description: "Intuitive tools for creating engaging and interactive online courses.",
-        icon: <Presentation className="h-5 w-5" />,
+        icon: "Presentation",
       },
       {
         title: "Interactive Learning Environment",
         description: "Engaging interface with support for various content types and interactive elements.",
-        icon: <Laptop className="h-5 w-5" />,
+        icon: "Laptop",
       },
       {
         title: "Collaborative Tools",
         description: "Discussion forums, group projects, and real-time collaboration features.",
-        icon: <Share2 className="h-5 w-5" />,
+        icon: "Share2",
       },
       {
         title: "Comprehensive Assessment",
         description: "Various assessment types with automated grading and detailed feedback.",
-        icon: <BarChart3 className="h-5 w-5" />,
+        icon: "BarChart3",
       },
     ],
     benefits: [
@@ -524,35 +509,33 @@ export const solutionNodes: SolutionNode[] = [
 ]
 
 // Helper function to get a solution by ID
-// Helper function to get a solution by ID): SolutionNode | undefined {
 export function getSolutionById(id: string): SolutionNode | undefined {
   return solutionNodes.find((node) => node.id === id)
 }
+
 // Helper function to get a solution by slug
-// Helper function to get a solution by slugng): SolutionNode | undefined {
 export function getSolutionBySlug(slug: string): SolutionNode | undefined {
   return solutionNodes.find((node) => node.slug === slug)
 }
+
 // Helper function to get related solutions
-// Helper function to get related solutionsing, limit = 3): SolutionNode[] {
 export function getRelatedSolutions(id: string, limit = 3): SolutionNode[] {
   const solution = getSolutionById(id)
   if (!solution) return []
   return solutionNodes
-    .filter((node) => 
-      solution.connections.includes(node.id) || 
-      node.connections.includes(solution.id)
+    .filter((node) =>
+      solution.connections.includes(node.id) || node.connections.includes(solution.id)
     )
     .filter((node) => node.id !== solution.id)
     .slice(0, limit)
 }
+
 // Helper function to get solutions by category
-// Helper function to get solutions by category: string): SolutionNode[] {
 export function getSolutionsByCategory(category: string): SolutionNode[] {
   return solutionNodes.filter((node) => node.category === category)
 }
+
 // Helper function to get solutions by workflow
-// Helper function to get solutions by workflowId: string): SolutionNode[] {
 export function getSolutionsByWorkflow(workflowId: string): SolutionNode[] {
   const workflow = Object.values(workflows).find((w) => w.title.toLowerCase().replace(/\s+/g, "-") === workflowId)
   if (!workflow) return []

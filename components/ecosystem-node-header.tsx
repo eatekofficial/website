@@ -1,7 +1,7 @@
 import React from "react"
-import type { EcosystemNode } from "./ecosystem-data"
+import { type EcosystemNode } from "../lib/ecosystem-data"
 import Link from "next/link"
-import { ChevronLeft } from "lucide-react"
+import { getIconComponent } from "../lib/icons"
 
 interface EcosystemNodeHeaderProps {
   node: EcosystemNode
@@ -10,17 +10,17 @@ interface EcosystemNodeHeaderProps {
 export default function EcosystemNodeHeader({ node }: EcosystemNodeHeaderProps) {
   return (
     <div>
-      <Link href="/ecosystem" className="inline-flex items-center text-sm text-gray-500 hover:text-gray-900 mb-6">
-        <ChevronLeft className="mr-1 h-4 w-4" />
+      <Link 
+        href="/ecosystem" 
+        className="inline-flex items-center text-sm text-gray-500 hover:text-gray-900 mb-6"
+      >
+        {getIconComponent("ChevronLeft", "mr-1 h-4 w-4")}
         Back to Ecosystem
       </Link>
 
       <div className="flex items-center gap-4 mb-4">
-        <div className="p-4 rounded-lg" style={{ backgroundColor: node.color }}>
-          {React.createElement(node.icon, {
-            size: 32,
-            className: "text-white",
-          })}
+        <div className={`p-2 rounded-lg`} style={{ backgroundColor: `${node.color}1a` }}>
+          {node.icon && getIconComponent(node.icon, "w-8 h-8")}
         </div>
 
         <div>

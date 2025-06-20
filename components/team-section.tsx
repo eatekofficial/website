@@ -140,7 +140,7 @@ export default function TeamSection() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, delay: 0.8 }}
         >
-          <h3 className="text-xl font-bold mb-4 text-blue-800">Why We're Building EATEK</h3>
+          <h3 className="text-xl font-bold mb-4 text-blue-800">Why We&apos;re Building EATEK</h3>
           <p className="text-muted-foreground mb-6">
             We believe that the future of technology must be built with soul, intention, and emotional intelligence. Our
             diverse backgrounds in art, education, and technology give us a unique perspective on creating systems that

@@ -29,7 +29,7 @@ export default function CommunityPage() {
     },
     {
       title: "Fellowship Opportunities",
-      description: "Apply for the ELAN 20' fellowship program to collaborate on groundbreaking projects.",
+      description: "Apply for the ELAN 20&apos; fellowship program to collaborate on groundbreaking projects.",
       icon: <Award className="h-6 w-6" />,
     },
   ]
@@ -108,7 +108,7 @@ export default function CommunityPage() {
                 Why Join Our Community?
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                EATEK is more than an organization — it's a growing ecosystem of creators, educators, and innovators.
+                EATEK is more than an organization — it&apos;s a growing ecosystem of creators, educators, and innovators.
               </p>
             </div>
           </AnimatedSection>
@@ -129,7 +129,7 @@ export default function CommunityPage() {
         </div>
       </section>
 
-      {/* ELAN 20' Fellowship */}
+      {/* ELAN 20&apos; Fellowship */}
       <section className="py-20 bg-gradient-to-b from-teal-50/20 to-blue-50/20">
         <div className="container px-4 md:px-6">
           <AnimatedSection>
@@ -138,7 +138,7 @@ export default function CommunityPage() {
                 Fellowship Program
               </div>
               <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-br from-blue-600 to-teal-600">
-                ELAN 20' — The Future Builders
+                ELAN 20&apos; — The Future Builders
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 An elite fellowship bringing together 20 visionary creators to build at the frontier of education, art,
@@ -152,8 +152,8 @@ export default function CommunityPage() {
               <div className="space-y-6">
                 <h3 className="text-2xl font-bold mb-2">About the Fellowship</h3>
                 <p className="text-muted-foreground">
-                  ELAN 20' is a six-month intensive collaboration program where selected fellows work directly with the
-                  EATEK team and industry experts to develop groundbreaking projects that push the boundaries of what's
+                  ELAN 20&apos; is a six-month intensive collaboration program where selected fellows work directly with the
+                  EATEK team and industry experts to develop groundbreaking projects that push the boundaries of what&apos;s
                   possible.
                 </p>
                 <div className="space-y-4">
@@ -169,7 +169,7 @@ export default function CommunityPage() {
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle className="h-5 w-5 text-teal-600 mt-0.5" />
-                      <span>Access to EATEK's network and resources</span>
+                      <span>Access to EATEK&apos;s network and resources</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle className="h-5 w-5 text-teal-600 mt-0.5" />
@@ -188,7 +188,7 @@ export default function CommunityPage() {
                     className="bg-gradient-to-r from-blue-600 to-teal-600 text-white hover:opacity-90"
                   >
                     <Link href="#apply">
-                      Apply for ELAN 20'
+                      Apply for ELAN 20&apos;
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
@@ -246,7 +246,7 @@ export default function CommunityPage() {
                       />
                     </div>
                     <div className="p-6">
-                      <h4 className="text-xl font-bold mb-2">{project.title}</h4>
+                      <h4 className="text-xl font-bold">{project.title}</h4>
                       <p className="text-muted-foreground">{project.description}</p>
                     </div>
                   </div>
@@ -312,7 +312,7 @@ export default function CommunityPage() {
                   Join Our Community
                 </h2>
                 <p className="text-lg text-muted-foreground">
-                  Whether you're interested in the general community or the ELAN 20' fellowship, start your journey with
+                  Whether you&apos;re interested in the general community or the ELAN 20&apos; fellowship, start your journey with
                   us by filling out this application.
                 </p>
                 <div className="space-y-4">
@@ -321,7 +321,7 @@ export default function CommunityPage() {
                     <ol className="space-y-2 list-decimal list-inside text-muted-foreground">
                       <li>Our team reviews your application (1-2 weeks)</li>
                       <li>Selected applicants receive an invitation to join</li>
-                      <li>ELAN 20' fellowship candidates proceed to interviews</li>
+                      <li>ELAN 20&apos; fellowship candidates proceed to interviews</li>
                       <li>Welcome onboarding and community introduction</li>
                     </ol>
                   </div>
@@ -331,7 +331,7 @@ export default function CommunityPage() {
                     <ul className="space-y-2">
                       <li className="flex items-start gap-2">
                         <CheckCircle className="h-5 w-5 text-teal-600 mt-0.5" />
-                        <span>Alignment with EATEK's vision and values</span>
+                        <span>Alignment with EATEK&apos;s vision and values</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <CheckCircle className="h-5 w-5 text-teal-600 mt-0.5" />
@@ -380,7 +380,7 @@ export default function CommunityPage() {
                       </div>
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="fellowship" id="fellowship" />
-                        <Label htmlFor="fellowship">ELAN 20' Fellowship Program</Label>
+                        <Label htmlFor="fellowship">ELAN 20&apos; Fellowship Program</Label>
                       </div>
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="both" id="both" />
@@ -476,8 +476,8 @@ export default function CommunityPage() {
                   </div>
                 </div>
                 <p className="italic text-muted-foreground mb-4">
-                  "Joining the EATEK community has transformed my practice. The intersection of art and technology is
-                  where I've always wanted to work, and finding like-minded collaborators has been invaluable."
+                  &quot;Joining the EATEK community has transformed my practice. The intersection of art and technology is
+                  where I&apos;ve always wanted to work, and finding like-minded collaborators has been invaluable.&quot;
                 </p>
                 <div className="flex">
                   {[1, 2, 3, 4, 5].map((star) => (
@@ -516,8 +516,8 @@ export default function CommunityPage() {
                   </div>
                 </div>
                 <p className="italic text-muted-foreground mb-4">
-                  "The ELAN fellowship was a career-defining experience. Working alongside talented creators with the
-                  support of the EATEK team helped me bring my vision to life in ways I couldn't have imagined."
+                  &quot;The ELAN fellowship was a career-defining experience. Working alongside talented creators with the
+                  support of the EATEK team helped me bring my vision to life in ways I couldn&apos;t have imagined.&quot;
                 </p>
                 <div className="flex">
                   {[1, 2, 3, 4, 5].map((star) => (
@@ -556,8 +556,8 @@ export default function CommunityPage() {
                   </div>
                 </div>
                 <p className="italic text-muted-foreground mb-4">
-                  "The community events and resources have been game-changing for my work. I've connected with
-                  collaborators, learned new skills, and found inspiration in the collective creativity of EATEK."
+                  &quot;The connections I&apos;ve made through EATEK have been career-changing. It&apos;s not just a network — it&apos;s
+                  family.&quot;
                 </p>
                 <div className="flex">
                   {[1, 2, 3, 4, 5].map((star) => (
@@ -586,7 +586,7 @@ export default function CommunityPage() {
           <AnimatedSection>
             <h2 className="text-2xl md:text-3xl font-bold mb-4">Ready to join the movement?</h2>
             <p className="text-lg mb-6 max-w-[800px] mx-auto opacity-90">
-              Become part of a community that's building the future at the intersection of education, art, and
+              Become part of a community that&apos;s building the future at the intersection of education, art, and
               technology.
             </p>
             <Button asChild variant="secondary" size="lg">

@@ -101,7 +101,7 @@ export default function CaseStudies() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-lg text-gray-600"
           >
-            Explore how we've helped organizations transform their ideas into impactful solutions.
+            Explore how we&apos;ve helped organizations transform their ideas into impactful solutions.
           </motion.p>
         </div>
 

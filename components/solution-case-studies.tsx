@@ -107,7 +107,7 @@ function SingleCaseStudy({
             <div className="flex gap-4">
               <Quote className={`h-8 w-8 ${categoryTextColor} opacity-80`} />
               <div>
-                <p className="italic text-gray-600 dark:text-gray-400">"{caseStudy.testimonial.quote}"</p>
+                <p className="italic text-gray-600 dark:text-gray-400">&ldquo;{caseStudy.testimonial.quote}&rdquo;</p>
                 <div className="mt-2">
                   <p className="font-medium">{caseStudy.testimonial.author}</p>
                   <p className="text-sm text-gray-500 dark:text-gray-500">{caseStudy.testimonial.role}</p>

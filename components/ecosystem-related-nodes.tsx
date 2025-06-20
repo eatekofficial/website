@@ -1,14 +1,17 @@
 import React from "react"
-import type { EcosystemNode } from "./ecosystem-data"
 import Link from "next/link"
+import { type EcosystemNode } from "../lib/ecosystem-data"
+import { getIconComponent } from "../lib/icons"
 
 interface EcosystemRelatedNodesProps {
   nodes: EcosystemNode[]
 }
 
 export default function EcosystemRelatedNodes({ nodes }: EcosystemRelatedNodesProps) {
+  if (!nodes.length) return null
+
   return (
-    <section>
+    <section className="mt-12">
       <h2 className="text-2xl font-semibold mb-6">Related Nodes</h2>
       <div className="grid md:grid-cols-3 gap-4">
         {nodes.map((node) => (
@@ -19,14 +22,11 @@ export default function EcosystemRelatedNodes({ nodes }: EcosystemRelatedNodesPr
           >
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-lg" style={{ backgroundColor: node.color }}>
-                {React.createElement(node.icon, {
-                  size: 20,
-                  className: "text-white",
-                })}
+                {node.icon && getIconComponent(node.icon, "w-5 h-5 text-white")}
               </div>
               <div>
                 <h3 className="font-medium">{node.name}</h3>
-                <div className="text-xs text-gray-500 capitalize">{node.category}</div>
+                <p className="text-sm text-gray-500 capitalize">{node.category}</p>
               </div>
             </div>
           </Link>
